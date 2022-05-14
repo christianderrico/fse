@@ -71,3 +71,34 @@ Il Referto di Radiologia può essere indirizzato sia allo Specialista sia al Med
     <patient>...</patient>
   </patientRole>
   ```
+  L'elemento ***patient*** contiene i dettagli anagrafici relativi al paziente.
+* ***author***: identifica il soggetto che ha creato il documento, Nel caso del Referto di Radiologia almeno un autore è rappresentato dal Medico Refertante.
+* ***custodian***: identifica l'organizzazione incaricata della custodia del documento originale, corrispondente al conservatore dei beni digitali.
+* ***legalAuthenticator***: riporta il firmatario del documento.
+* participant: rappresenta tutti coloro che partecipano all’atto
+descritto dal documento.
+* ***inFulfillmentOf***: identifica la richiesta che ha determinato la produzione del documento di Referto di Radiologia od agni altro tipo di ordine ad esso relativo.
+* ***componentOf***: descrive l’incontro tra assistito e la struttura sanitaria durante il quale l’atto documentato è avvenuto. Tra i campi da definire l'unico obbligatorio è ```healthCareFacility``` che specifica il luogo.
+  ```xml
+  <location>
+    <healthCareFacility>
+      <id root="2.16.840.1.113883.2.9.4.1.6" extension="[CODICE UNITA’ OPERATIVA]"/>
+      <location>
+        <name>Cardiologia Terapia Intensiva</name>
+      </location>
+      ...
+    </healthCareFacility> 
+  </location>
+  ```
+## Body
+Lo standard CDA prevede che il corpo di un documento possa essere formato in modo strutturato (```<structuredBody>```) o in modo destrutturato (```<nonXMLBody>```).
+  Un referto di radiologia è organizzato in una serie di sezioni autoconsistenti, definiti dall’elemento ```<section>```.
+  Le sezioni OBBLIGATORIE nel caso del CDA:
+  * ***Esame eseguito***: descrive l’esame radiologico oggetto del referto. È caratterizzato dalla data di esecuzione, dalla modalità di esecuzione e dalla dose assorbita (qualora l’esame preveda l’esposizione del paziente a radiazioni ionizzanti);
+    * ```<code>```: definisce la tipologia di ```<section>``` in base alla codifica LOINC;
+    * ```<title>```: rappresenta il titolo della sezione;
+    * ```<entry>```: consente di rappresentare in modo strutturato le informazioni di dettaglio riferite nel blocco narrativo
+  * ***Referto***:  rappresenta l’elemento centrale e riportata al proprio interno una descrizione delle valutazioni del medico.
+    * ```<code>```;
+    * ```<title>```.
+  
