@@ -134,8 +134,32 @@ Il Referto di Radiologia può essere indirizzato sia allo Specialista sia al Med
   </legalAuthenticator>
   ```
 * _participant_: rappresenta tutti coloro che partecipano all’atto descritto dal documento. 
-* _inFulfillmentOf_: identifica la richiesta che ha determinato la produzione del documento di Referto di Radiologia od agni altro tipo di ordine ad esso relativo.
-* ***componentOf***: descrive l’incontro tra assistito e la struttura sanitaria durante il quale l’atto documentato è avvenuto. Tra i campi da definire l'unico obbligatorio è ```healthCareFacility``` che specifica il luogo.
+* ***inFulfillmentOf***: identifica la richiesta che ha determinato la produzione del documento di Referto di Radiologia od agni altro tipo di ordine ad esso relativo. Esempi di ordini che possono essere descritti sono:
+  - **l’accession number** (OBBLIGATORIO);
+  - identificativo della prescrizione (CONSIGLIATO);
+  - identificativo CUP;
+  - Identificativo dell’ordine interno;
+
+  #### Esempio di implementazione: Accession Number**
+  L’elemento ``<inFulfillmentOf>`` DEVE essere utilizzato per documentare l’identificativo assegnato dal RIS per l’ordine per questo studio
+    ```xml
+    <inFulfillmentOf>
+      <order>
+        <id extension="[Accession_Number]" root="[OID_Accession_Number]"/>
+      </order>
+    </inFulfillmentOf> 
+    ```
+  #### Esempio di implementazione: Identificativo della prescrizione
+    ```xml
+    <inFulfillmentOf>
+      <order classCode="ACT" moodCode="RQO">
+        <id root="2.16.840.1.113883.2.9.4.3.8"
+            extension="[NRE]"
+            assigningAuthorityName="Ministero delle Finanze"/>
+      </order>
+    </inFulfillmentOf>
+    ```
+* ***componentOf***: descrive l’incontro tra assistito e la struttura sanitaria durante il quale l’atto documentato è avvenuto. Tra i campi da definire l'unico obbligatorio è ```healthCareFacility``` che specifica il luogo. L’identificativo dell’Azienda Sanitaria in cui è avvenuto l’incontro DEVE essere riportato in: ```<healthCareFacility>/<serviceProviderOrganization>/<asOrganizationPartOf>/<id>```.
   ```xml
   <componentOf>
     <ecompassingEncounter>
@@ -149,6 +173,11 @@ Il Referto di Radiologia può essere indirizzato sia allo Specialista sia al Med
           ...
         </healthCareFacility> 
       </location>
+      <serviceProviderOrganization>
+        <id root="2.16.840.1.113883.2.9.4.1.2"
+            extension="CODICE_MINISTERIALE_HSP11-OSPEDALE"
+            assigningAuthorityName="Ministero della Salute"/>
+      </serviceProviderOrganization>
     </ecompassingEncounter>
   </componentOf>
   ```
