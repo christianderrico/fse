@@ -71,11 +71,70 @@ Il Referto di Radiologia può essere indirizzato sia allo Specialista sia al Med
   ```
   L'elemento ***patient*** contiene i dettagli anagrafici relativi al paziente.
 * ***author***: identifica il soggetto che ha creato il documento, Nel caso del Referto di Radiologia almeno un autore è rappresentato dal Medico Refertante.
+  * ``<time>``: indicazione dell'ora di produzione del documento;
+  * ``<id>``: identifica l'autore;
+    | Attributo | Tipo | Valore                        | Dettagli                                         |
+    |-----------|------|-------------------------------|--------------------------------------------------|
+    | root      | OID  | "2.16.840.1.113883.2.9.4.3.2" | OID del Ministero dell'Economia e delle Finanze. |
+    | Referto   | ST   | [CODICE FISCALE]              | Codice fiscale dell'autore del documento.        |
+  * ``<assignedPerson>``: campo OPZIONALE che include il nominativo dell'autore.
+  
+  Esempio di utilizzo:
+
+  ```xml
+  <author>
+    <time value="20000407130000+0100"/>
+    <assignedAuthor>
+      <id root="2.16.840.1.113883.2.9.4.3.2"
+      extension="PNCPLL99M22G999T"/>
+      <assignedPerson>
+        <name>
+          <given>Dr. Pinco</given>
+          <family>Palla</family>
+        </name>
+      </assignedPerson>
+    </assignedAuthor>
+  </author>
+  ```
 * ***custodian***: identifica l'organizzazione incaricata della custodia del documento originale, corrispondente al conservatore dei beni digitali.
-* ***legalAuthenticator***: riporta il firmatario del documento.
-* participant: rappresenta tutti coloro che partecipano all’atto
-descritto dal documento.
-* ***inFulfillmentOf***: identifica la richiesta che ha determinato la produzione del documento di Referto di Radiologia od agni altro tipo di ordine ad esso relativo.
+
+    | Attributo | Tipo | Valore                                                 | Dettagli                                                                                                                 |
+    |-----------|------|--------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
+    | root      | OID  | [OID DOMINIO DI INDENTIFICAZIONE DELLE ORGANIZZAZIONI] | Identificativo del dominio di identificazione delle organizzazioni.                                                      |
+    | Extension | ST   | [ID ORGANIZZAZIONE]                                    | Identificativo dell' organizzazione (ASL, Regione) da parte del dominio di identificazione definito nell'attributo root. |
+
+  ```xml
+  <custodian>
+    <assignedCustodian>
+    <representedCustodianOrganization>
+        <id root="2.16.840.1.113883.2.9.4.1.2" extension="130106"/>
+        <name>ASL Teramo</name>
+      </representedCustodianOrganization>
+    </assignedCustodian>
+  </custodian>
+  ```
+* ***legalAuthenticator***: riporta il firmatario del documento. L'elemento ``<legalAuthenticator>``DEVE contenere un elemento ``<time>`` con l'indicazione dell'ora in cui il documento è stato firmato, un elemento ``<signatureCode>`` per indicare che il documento è firmato, ed un elemento ``<assignedEntity>``, destinato ad accogliere l'elemento ``<id>`` del medico responsabile del documento. La sezione può OPZIONALMENTE contenere un elemento ``<assignedPerson>/<name>``.
+
+  Esempio di utilizzo:
+  ```xml
+  <legalAuthenticator>
+    <time value="20140329173712+0100"/>
+    <signatureCode code="S"/>
+    <assignedEntity>
+      <id root="2.16.840.1.113883.2.9.4.3.2"
+      extension="PNCPLL99M22G999T"/>
+      <assignedPerson>
+      <name>
+        <prefix>Professore</prefix>
+        <given>Pinco</given>
+        <family>Palla</family>
+      </name>
+      </assignedPerson>
+    </assignedEntity>
+  </legalAuthenticator>
+  ```
+* _participant_: rappresenta tutti coloro che partecipano all’atto descritto dal documento. 
+* _inFulfillmentOf_: identifica la richiesta che ha determinato la produzione del documento di Referto di Radiologia od agni altro tipo di ordine ad esso relativo.
 * ***componentOf***: descrive l’incontro tra assistito e la struttura sanitaria durante il quale l’atto documentato è avvenuto. Tra i campi da definire l'unico obbligatorio è ```healthCareFacility``` che specifica il luogo.
   ```xml
   <componentOf>

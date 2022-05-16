@@ -1,7 +1,7 @@
 ## Lettera di Dimissione Ospedaliera (LDO)
 La lettera di dimissione è un documento che viene rilasciato al paziente al termine di una fase di ricovero ospedaliero e contiene le indicazioni per gli eventuali controlli o terapie da effettuare. Questo documento contiene le principali informazioni inerenti al passaggio di cura dal contesto ospedaliero a quello territoriale. Le informazioni contenute nel documento sono destinate al medico che seguirà il paziente successivamente. Una copia della lettera viene inviata anche al medico di famiglia, al prescrittore del trattamento o a eventuali altri istituti di cura interessati nel percorso diagnostico-terapeutico. La responsabilità della corretta compilazione della lettera di dimissione compete al medico responsabile della dimissione e la LDO DEVE riportare l’identificazione di detto medico e la sua firma. 
 ### Header
-- inFulfillmentOf: elemento OPZIONALE che identifica la prescrizione di ricovero.
+- _inFulfillmentOf_: elemento OPZIONALE che identifica la prescrizione di ricovero.
   ```xml
   <inFulfillmentOf>
     <order classCode="ACT" moodCode="RQO">
@@ -12,8 +12,8 @@ La lettera di dimissione è un documento che viene rilasciato al paziente al ter
   </inFulfillmentOf>
   ```
   Nel caso di ricette rosse cartacee ``extension="[CONCATENAZIONE BAR1 BAR2]"``.
-- **componentOf**: identifica il ricovero a cui si riferisce la dimissione, riferito da ``<componentOf>/<encompassingEncounter>``
-- **id**:  rappresenta l’identificativo del ricovero, cioè riporta il numero nosologico corrispondente al ricovero.
+- ***componentOf***: identifica il ricovero a cui si riferisce la dimissione, riferito da ``<componentOf>/<encompassingEncounter>``
+- ***id***:  rappresenta l’identificativo del ricovero, cioè riporta il numero nosologico corrispondente al ricovero.
   ```xml
   </componentOf>
     <encompassingEncounter> 
@@ -24,7 +24,7 @@ La lettera di dimissione è un documento che viene rilasciato al paziente al ter
     </encompassingEncounter>
   </componentOf>
   ```
-- **effective time**: identifica le date di inizio e fine ricovero.
+- ***effective time***: identifica le date di inizio e fine ricovero.
 
 ### Body
 Lo standard CDA prevede che il corpo di un documento possa essere formato in modo strutturato (``<structuredBody>``) o in modo destrutturato (``<nonXMLBody>``). 
@@ -56,7 +56,7 @@ Lo standard CDA prevede che il corpo di un documento possa essere formato in mod
     ```
   * ``<title>``: rappresenta il titolo della sezione (``<title>Motivo del ricovero</title>``).
   * ``<text>``: blocco narrativo, un esempio di utilizzo:
-  
+
     ```xml
     <text>
       <list>
