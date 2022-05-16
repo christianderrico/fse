@@ -95,14 +95,72 @@ descritto dal documento.
   ```
 ## Body
 Lo standard CDA prevede che il corpo di un documento possa essere formato in modo strutturato (```<structuredBody>```) o in modo destrutturato (```<nonXMLBody>```).
-  Un referto di radiologia è organizzato in una serie di sezioni autoconsistenti, definiti dall’elemento ```<section>```.
-  Le sezioni OBBLIGATORIE nel caso del CDA:
+Un referto di radiologia è organizzato in una serie di sezioni autoconsistenti, definiti dall’elemento ```<section>```.
+Le sezioni OBBLIGATORIE nel caso del CDA:
+  | Sezioni        | Codici LOINC | Descrizioni LOINC ShortName                     |
+  |----------------|--------------|-------------------------------------------------|
+  | Esame eseguito | 55111-9      | Current imaging procedure descriptions Document |
+  | Referto        | 18782-3      | Radiology Study observation                     |
   * ***Esame eseguito***: descrive l’esame radiologico oggetto del referto. È caratterizzato dalla data di esecuzione, dalla modalità di esecuzione e dalla dose assorbita (qualora l’esame preveda l’esposizione del paziente a radiazioni ionizzanti);
-    * ```<code>```: definisce la tipologia di ```<section>``` in base alla codifica LOINC;
-    * ```<title>```: rappresenta il titolo della sezione;
-    * ```<entry>```: consente di rappresentare in modo strutturato le informazioni di dettaglio riferite nel blocco narrativo
+    * ```<code>```: definisce la tipologia di ```<section>``` in base alla codifica LOINC; il valore del campo ``code`` è ``"55111-9"``.
+    * ```<title>```: rappresenta il titolo della sezione (``<title>Esame eseguito</title>``);
+    * ```<entry>```: consente di rappresentare in modo strutturato le informazioni di dettaglio riferite nel blocco narrativo.
+    ```xml
+    <entry typeCode="DRIV">
+      <act moodCode="EVN" classCode="ACT">
+        <code codeSystem="[OID CODIFICA REGIONALE]" 
+          codeSystemName="[CODIFICA REGIONALE]"
+          code="[CODICE REGIONALE]" displayName="Rx Torace">
+          <originalText>
+            <reference value="#EsameDesc1"/>
+          </originalText>
+          <translation code="87.3" displayName="Soft tissue x-ray of thorax"
+          codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD-9-CM"/>
+        </code>
+        <text>
+        <reference value="#Esame1"/>
+        </text>
+        <effectiveTime value="20180203092205+0200"/>
+      </act>
+    </entry>
+    ```
+    > CONF-RAD-125: la sezione Esame Eseguito DEVE contenere un elemento ``<entry>/<act>`` il quale DEVE a sua volta contenere un elemento ``<code>`` riportante il codice dell’esame eseguito e DEVE contenere un elemento ``<effectiveTime>`` che indica la data di esecuzione dell’esame.
+    * ```<text>```: un esempio di utilizzo:
+      ```xml
+      <text>
+        <table>
+          <thead>
+            <tr>
+              <th>Descrizione Esame Eseguito</th>  
+              <th>Data Esame Eseguito</th> 
+              <th>Modalità Esame Eseguito</th>
+              <th>Dose Assorbita</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ID="Esame1"> 
+              <td ID="EsameDesc1">Radiografia del torace</td>
+              <td>(03 Feb 2014 09:22)</td>
+              <td>Procedura radiografica del torace</td>
+              <td>0,001mSv</td>
+            </tr>
+          </tbody>
+        </table>
+      </text>
+      ```
   * ***Referto***:  rappresenta l’elemento centrale e riportata al proprio interno una descrizione delle valutazioni del medico.
-    * ```<code>```;
-    * ```<title>```.
+    * ```<code>```: il valore del campo ``code`` è ``"18782-3"``;
+    * ```<title>```: (``<title>Referto</title>``);
+    * ```<text>```: blocco narrativo contente tutte le informazioni __"human-readable"__.
+    Esempio di utilizzo:
+    ```xml
+    <text>
+      <paragraph>
+        Al controllo odierno non sono evidenti significative curvature scoliotiche
+        Non si riscontrano lesioni ossee. Nel tratto dorsale e lombare non sono
+        evidenti discopatie. Lieve sopraelevazione della cresta iliaca destra.  
+      </paragraph>
+    </text>
+    ```
   
 
