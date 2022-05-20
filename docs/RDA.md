@@ -70,7 +70,29 @@ Il Referto di Radiologia può essere indirizzato sia allo Specialista sia al Med
   </patientRole>
   ```
   L'elemento ***patient*** contiene i dettagli anagrafici relativi al paziente.
-* ***author***: identifica il soggetto che ha creato il documento, Nel caso del Referto di Radiologia almeno un autore è rappresentato dal Medico Refertante.
+  ```xml
+  <patient>
+    <name>
+      <family>PAPERINO</family>
+      <given>PAOLINO</given>
+    </name>
+    <administrativeGenderCode code="M" codeSystem="2.16.840.1.113883.5.1"
+                codeSystemName="HL7 AdministrativeGender" 
+                codeSystemVersion="1.0"
+                displayName="Maschio"/>
+    <birthTime value="19200609"/>
+    <birthPlace>
+      <place>
+      <addr>
+        <city>GENOVA</city>
+        <country>ITA</country>
+        <censusTract>010025</censusTract>
+      </addr>
+      </place>
+    </birthPlace>
+  </patient>
+  ```
+* ***author***: identifica il soggetto che ha creato il documento (<u>può essere una persona o un _device_</u>); nel caso del Referto di Radiologia almeno un autore è rappresentato dal Medico Refertante.
   * ``<time>``: indicazione dell'ora di produzione del documento;
   * ``<id>``: identifica l'autore;
     | Attributo | Tipo | Valore                        | Dettagli                                         |
@@ -193,26 +215,26 @@ Le sezioni OBBLIGATORIE nel caso del CDA:
     * ```<code>```: definisce la tipologia di ```<section>``` in base alla codifica LOINC; il valore del campo ``code`` è ``"55111-9"``.
     * ```<title>```: rappresenta il titolo della sezione (``<title>Esame eseguito</title>``);
     * ```<entry>```: consente di rappresentare in modo strutturato le informazioni di dettaglio riferite nel blocco narrativo.
-    ```xml
-    <entry typeCode="DRIV">
-      <act moodCode="EVN" classCode="ACT">
-        <code codeSystem="[OID CODIFICA REGIONALE]" 
-          codeSystemName="[CODIFICA REGIONALE]"
-          code="[CODICE REGIONALE]" displayName="Rx Torace">
-          <originalText>
-            <reference value="#EsameDesc1"/>
-          </originalText>
-          <translation code="87.3" displayName="Soft tissue x-ray of thorax"
-          codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD-9-CM"/>
-        </code>
-        <text>
-        <reference value="#Esame1"/>
-        </text>
-        <effectiveTime value="20180203092205+0200"/>
-      </act>
-    </entry>
-    ```
-    > CONF-RAD-125: la sezione Esame Eseguito DEVE contenere un elemento ``<entry>/<act>`` il quale DEVE a sua volta contenere un elemento ``<code>`` riportante il codice dell’esame eseguito e DEVE contenere un elemento ``<effectiveTime>`` che indica la data di esecuzione dell’esame.
+      ```xml
+      <entry typeCode="DRIV">
+        <act moodCode="EVN" classCode="ACT">
+          <code codeSystem="[OID CODIFICA REGIONALE]" 
+            codeSystemName="[CODIFICA REGIONALE]"
+            code="[CODICE REGIONALE]" displayName="Rx Torace">
+            <originalText>
+              <reference value="#EsameDesc1"/>
+            </originalText>
+            <translation code="87.3" displayName="Soft tissue x-ray of thorax"
+            codeSystem="2.16.840.1.113883.6.103" codeSystemName="ICD-9-CM"/>
+          </code>
+          <text>
+          <reference value="#Esame1"/>
+          </text>
+          <effectiveTime value="20180203092205+0200"/>
+        </act>
+      </entry>
+      ```
+      > CONF-RAD-125: la sezione Esame Eseguito DEVE contenere un elemento ``<entry>/<act>`` il quale DEVE a sua volta contenere un elemento ``<code>`` riportante il codice dell’esame eseguito e DEVE contenere un elemento ``<effectiveTime>`` che indica la data di esecuzione dell’esame.
     * ```<text>```: un esempio di utilizzo:
       ```xml
       <text>
