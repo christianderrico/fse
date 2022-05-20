@@ -5,7 +5,15 @@ In base a determinate condizioni cliniche, di reddito o sociali alcune prestazio
 - _Presenza di determinate tipologie_
 - _Riconoscimento dello stato di invalidità_
 - _Altri casi particolari_ (gravidanza, vaccini, etc.)
-### Header
+### Header*
+- ***code***: esempio di utilizzo
+  ```xml
+  <code code="57827-8"
+        codeSystem="2.16.840.1.113883.6.1"
+        codeSystemName="LOINC"
+        codeSystemVersion="2.19"
+        displayName="Documento di Esenzione"/>
+  ```
 - ***recordTarget***: l’elemento __recordTarget/patientRole__ ha un attributo __recordTarget/patientRole/@classCode__ che assume il valore fisso ``“PAT”``.
   ```xml
     <recordTarget>
@@ -58,7 +66,10 @@ In base a determinate condizioni cliniche, di reddito o sociali alcune prestazio
     </representedOrganization>
     ```
 ### Body
-Il CDA R2 di esenzione contiene un solo elemento <section>, che contiene le informazioni sulle esenzioni che saranno di tipo narrativo e di tipo codificato.
+Il CDA R2 di esenzione contiene un SOLO elemento <section>, che contiene le informazioni sulle esenzioni che saranno di tipo narrativo e di tipo codificato.
+ | Sezioni        | Codici LOINC | Descrizioni LOINC ShortName                     |
+  |----------------|--------------|-------------------------------------------------|
+  | Esenzione | 57827-8      | "Motivo di esenzione dal co-pagamento |
 - __clinicalDocument/component/structuredBody/component/section__: 
   ```xml
   <component>

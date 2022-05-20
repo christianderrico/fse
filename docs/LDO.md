@@ -24,6 +24,14 @@ La lettera di dimissione è un documento che viene rilasciato al paziente al ter
     </encompassingEncounter>
   </componentOf>
   ```
+- ***code***: esempio di utilizzo
+  ```xml
+  <code code="34105-7"
+        codeSystem="2.16.840.1.113883.6.1"
+        codeSystemName="LOINC"
+        codeSystemVersion="2.19"
+        displayName="Lettera di dimissione ospedaliera"/>
+  ```
 - ***effective time***: identifica le date di inizio e fine ricovero.
 
 ### Body
