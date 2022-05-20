@@ -81,3 +81,38 @@ Il CDA R2 di esenzione contiene un solo elemento <section>, che contiene le info
   > - è OBBLIGATORIO aggiungere il titolo della sezione
   > - è OBBLIGATORIO inserire il blocco narrativo
   > - è OBBLIGATORIO inserire le entry strutturate che codificano le esenzioni specifiche.
+
+- section/ __entry/act__ (blocco strutturato): contiene i dati identificativi e descrittivi dell’esenzione specifica posseduta dall’assistito.
+  > - l’attributo section/entry/@classCode DEVE essere valorizzato con “ACT”
+  > - l’attributo section/entry/@moodCode DEVE essere valorizzato con “EVN”
+
+  Esempio di utilizzo:
+  ```xml
+  <entry typeCode="DRIV">
+    <act classCode="ACT" moodCode="EVN">
+  ```
+  - __templateId__:  indica il template di riferimento dell’act utilizzato per descrivere il contenuto strutturato del documento di esenzione. ```<templateId root="2.16.840.1.113883.2.9.10.1.10.3"/>```
+  - __code__: indica il codice e la descrizione dell’esenzione specificatamente attribuita all’assistito secondo catalogo nazionale o regionale.
+    - _codeSystem_: rappresenta l’OID di uno dei seguenti sistemi di codifica e DEVE assumere come valore ``2.16.840.1.113883.2.9.6.1.22`` (nazionale) o ``2.16.840.1.113883.2.9.2.[REGIONE].6.22`` (regionale).
+    - _displayName_: descrizione del codice dell’esenzione nel catalogo utilizzato.
+    
+    Esempio di utilizzo:
+    ```xml
+    <code code="016.07032" 
+          codeSystem="2.16.840.1.113883.2.9.6.1.22" 
+          codeSystemName="Catalogo nazionale delle esenzioni"
+          displayName="Epatite Cronica (attiva)"/>
+    ```
+  - section/entry/act/__statusCode__: contiene lo stato dell’esenzione specifica al momento della produzione del documento. Un documento di esenzione può trovarsi in uno dei seguenti stati:
+    - active: l’esenzione corrispondente è in corso di validità;
+    - suspended: l’esenzione corrispondente è stata momentaneamente sospesa;
+    - aborted: l’esenzione corrispondente non è mai stata valida;
+    - completed: l’esenzione corrispondente non è più in corso di validità;
+    ![Diagram of DE statusCode](images/de-status-diagram.png "statusCode")
+  - section/entry/act/__effectiveTime__: indica la data di inizio e di fine validità dell'esenzione.
+    ```xml
+    <effectiveTime>
+      <low value="20170523"/>
+      <high value="20180523"/>
+    </effectiveTime>
+    ```
